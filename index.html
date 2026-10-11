@@ -5,6 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matth’s Coffee — Small-batch roasts</title>
 <meta name="description" content="Matth’s Coffee: small-batch coffee from Huila, Colombia. Scroll through our roasts and our process, then pre-order your first bag.">
+
+<!-- SEARCH ENGINES
+     The <title> and the description above are what Google usually shows in its results:
+     the title as the blue link, the description as the grey text under it.
+     "canonical" tells Google which address is the official one for this page,
+     so it doesn't treat index.html and the plain folder address as two different pages. -->
+<link rel="canonical" href="https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/">
+<meta name="robots" content="index, follow">
+
+<!-- SHARE PREVIEW (Open Graph)
+     Read by WhatsApp, Facebook, Instagram, LinkedIn, iMessage, Slack...
+     When someone pastes your link, these lines build the card: image, title, text.
+     The image address must be complete (starting with https://) or apps can't load it. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Matth’s Coffee">
+<meta property="og:title" content="Matth’s Coffee — Small-batch roasts">
+<meta property="og:description" content="Three small-batch roasts from family farms in Huila, Colombia. Pre-order your first bag.">
+<meta property="og:url" content="https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/">
+<meta property="og:image" content="https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two hands lifting a heap of roasted coffee beans">
+<meta property="og:locale" content="en_GB">
+<!-- Same idea for X (Twitter), which uses its own tag names. -->
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- BUSINESS INFORMATION (structured data, JSON-LD)
+     Visitors never see this. It describes the page in a format Google reads like a form:
+     "this is an organisation called Matth's Coffee, and it sells these three products at these prices".
+     It uses the shared vocabulary from schema.org. You can test it at
+     https://search.google.com/test/rich-results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/#brand",
+      "name": "Matth’s Coffee",
+      "url": "https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/",
+      "description": "Small-batch coffee roaster working with family farms in Huila, Colombia.",
+      "image": "https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/og-image.jpg"
+    },
+    {
+      "@type": "Product",
+      "name": "Morning — medium roast",
+      "description": "Hazelnut, milk chocolate and a soft finish. Made for filter and French press. 250 g.",
+      "brand": { "@id": "https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/#brand" },
+      "offers": { "@type": "Offer", "price": "12.00", "priceCurrency": "EUR", "availability": "https://schema.org/PreOrder" }
+    },
+    {
+      "@type": "Product",
+      "name": "Evening — dark roast",
+      "description": "Cocoa, toasted almond and low acidity. Made for espresso and moka pot. 250 g.",
+      "brand": { "@id": "https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/#brand" },
+      "offers": { "@type": "Offer", "price": "12.00", "priceCurrency": "EUR", "availability": "https://schema.org/PreOrder" }
+    },
+    {
+      "@type": "Product",
+      "name": "Single origin — light roast",
+      "description": "Red fruit, tea-like body and a clean, bright finish. Made for pour-over. 250 g.",
+      "brand": { "@id": "https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/#brand" },
+      "offers": { "@type": "Offer", "price": "15.00", "priceCurrency": "EUR", "availability": "https://schema.org/PreOrder" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">

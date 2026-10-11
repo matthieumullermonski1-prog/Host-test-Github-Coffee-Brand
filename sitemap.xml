@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SITEMAP
+  A list of every page on the site, so search engines don't have to guess.
+  This site has one page today. When you add pages (a blog article, a shop page...),
+  add a <url> block for each one and update <lastmod> to the date you changed it.
+  You submit this file's address in Google Search Console > Sitemaps.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://matthieumullermonski1-prog.github.io/Host-test-Github-Coffee-Brand/</loc>
+    <lastmod>2026-10-11</lastmod>
+  </url>
+</urlset>
