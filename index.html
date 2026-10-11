@@ -46,6 +46,11 @@ h2{font:400 clamp(2rem,5vw,3.2rem)/1.1 var(--serif);margin:0 0 2.5rem}
 .coffee p{margin:0;color:#4a5357}
 .coffee .price{font-weight:600}
 
+.photo{margin:0;padding:4rem 0 0}
+.photo img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:2px;background:var(--mist)}
+.photo figcaption{margin-top:.6rem;color:#4a5357;font-size:.85rem}
+.photo figcaption a{color:inherit}
+
 .about{background:#e1e4e3}
 .about p{max-width:40rem;font-size:1.2rem}
 
@@ -90,6 +95,18 @@ footer{padding:2.5rem 0;border-top:1px solid var(--mist);color:#4a5357;font-size
       <a class="btn" href="#preorder">Pre-order a bag</a>
     </div>
   </div>
+
+  <figure class="photo">
+    <div class="wrap">
+      <img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=1600&q=80"
+           srcset="https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=800&q=80 800w,
+                   https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=1600&q=80 1600w"
+           sizes="(max-width: 68rem) 100vw, 68rem"
+           alt="A latte with milk foam art in a white cup on a saucer"
+           width="1600" height="900" loading="lazy">
+      <figcaption>Photo by <a href="https://unsplash.com/@jeremyyappy">Jeremy Yap</a> on <a href="https://unsplash.com/photos/jn-HaGWe4yw">Unsplash</a></figcaption>
+    </div>
+  </figure>
 
   <section id="coffees">
     <div class="wrap">
