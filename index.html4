@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Name — Coffee</title>
+<meta name="description" content="Small-batch coffee. Pre-order your first bag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1f2428;      /* graphite */
+  --paper:#eceeed;    /* cool light grey */
+  --slate:#2f3a3d;    /* deep slate */
+  --mist:#aeb7b4;     /* muted grey-green */
+  --bean:#5a4636;     /* roasted brown, used sparingly */
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.65 var(--sans)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bean);outline-offset:3px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0}
+.logo{font:1.5rem var(--serif);text-decoration:none}
+nav a{margin-left:1.5rem;text-decoration:none;font-weight:500}
+nav a:hover{text-decoration:underline}
+
+.hero{background:var(--slate);color:var(--paper);padding:6rem 0 7rem}
+.hero h1{font:400 clamp(3.2rem,11vw,8.5rem)/.95 var(--serif);margin:0 0 2rem;letter-spacing:-.02em}
+.hero p{max-width:34rem;color:var(--mist);margin:0 0 2.5rem;font-size:1.2rem}
+.btn{display:inline-block;background:var(--paper);color:var(--ink);padding:.9rem 1.8rem;font:600 1rem var(--sans);text-decoration:none;border:0;cursor:pointer;border-radius:2px}
+.btn:hover{background:#fff}
+.hero-top{background:var(--slate);color:var(--paper)}
+.hero-top header{color:var(--paper)}
+
+section{padding:5rem 0}
+h2{font:400 clamp(2rem,5vw,3.2rem)/1.1 var(--serif);margin:0 0 2.5rem}
+
+.coffees{border-top:1px solid var(--ink)}
+.coffee{display:grid;grid-template-columns:1fr 2fr auto;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--mist);align-items:baseline}
+.coffee h3{font:400 1.8rem/1.1 var(--serif);margin:0}
+.coffee p{margin:0;color:#4a5357}
+.coffee .price{font-weight:600}
+
+.about{background:#e1e4e3}
+.about p{max-width:40rem;font-size:1.2rem}
+
+form{display:grid;gap:1.25rem;max-width:36rem}
+label{display:grid;gap:.4rem;font-weight:500}
+input,select,textarea{font:inherit;padding:.8rem .9rem;border:1px solid var(--mist);background:#f7f8f7;color:var(--ink);border-radius:2px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none;box-shadow:0 0 0 2px var(--mist)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+form .btn{background:var(--slate);color:var(--paper);justify-self:start}
+form .btn:hover{background:var(--ink)}
+.note{color:#4a5357;font-size:.95rem;margin:0}
+#status{min-height:1.5rem;font-weight:500;margin:0}
+.hp{position:absolute;left:-9999px}
+
+footer{padding:2.5rem 0;border-top:1px solid var(--mist);color:#4a5357;font-size:.95rem}
+
+@media(max-width:700px){
+  .coffee{grid-template-columns:1fr;gap:.4rem}
+  .row{grid-template-columns:1fr}
+  nav a{margin-left:1rem}
+  .hero{padding:4rem 0 5rem}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="hero-top">
+  <div class="wrap">
+    <header>
+      <a class="logo" href="#top">Brand Name</a>
+      <nav><a href="#coffees">Coffees</a><a href="#about">About</a><a href="#preorder">Pre-order</a></nav>
+    </header>
+  </div>
+</div>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Coffee,<br>roasted slowly.</h1>
+      <p>Small batches, honest origins, nothing hidden. Our first roast is coming soon. Reserve your bag before it ships.</p>
+      <a class="btn" href="#preorder">Pre-order a bag</a>
+    </div>
+  </div>
+
+  <section id="coffees">
+    <div class="wrap">
+      <h2>The first three roasts</h2>
+      <div class="coffees">
+        <div class="coffee">
+          <h3>Morning</h3>
+          <p>Medium roast. Hazelnut, milk chocolate and a soft finish. Made for filter and French press.</p>
+          <span class="price">€12 / 250 g</span>
+        </div>
+        <div class="coffee">
+          <h3>Evening</h3>
+          <p>Dark roast. Cocoa, toasted almond and low acidity. Made for espresso and moka pot.</p>
+          <span class="price">€12 / 250 g</span>
+        </div>
+        <div class="coffee">
+          <h3>Single origin</h3>
+          <p>Light roast. Red fruit, tea-like body and a clean, bright finish. Made for pour-over.</p>
+          <span class="price">€15 / 250 g</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <h2>Why we do this</h2>
+      <p>We buy from small farms, roast in small batches and ship within a week of roasting. You get fresh coffee and know where it comes from. Roast details and origin appear on every bag.</p>
+    </div>
+  </section>
+
+  <section id="preorder">
+    <div class="wrap">
+      <h2>Pre-order your coffee</h2>
+      <form id="form" action="https://formspree.io/f/xyekpknd" method="POST">
+        <label>Full name
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <div class="row">
+          <label>Email
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>Phone (optional)
+            <input type="tel" name="phone" autocomplete="tel">
+          </label>
+        </div>
+        <div class="row">
+          <label>Coffee
+            <select name="product" required>
+              <option value="">Choose a roast</option>
+              <option>Morning</option>
+              <option>Evening</option>
+              <option>Single origin</option>
+            </select>
+          </label>
+          <label>Number of bags
+            <input type="number" name="quantity" min="1" max="20" value="1" required>
+          </label>
+        </div>
+        <label>Message (optional)
+          <textarea name="message" rows="4" placeholder="Grind size, delivery address, questions..."></textarea>
+        </label>
+        <input type="hidden" name="_subject" value="New coffee pre-order">
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit">Send my pre-order</button>
+        <p class="note">We use your details only to contact you about your order. No payment is taken now.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Brand Name. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
