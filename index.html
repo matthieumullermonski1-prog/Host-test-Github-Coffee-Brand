@@ -4,171 +4,349 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brand Name — Coffee</title>
-<meta name="description" content="Small-batch coffee. Pre-order your first bag.">
+<meta name="description" content="Small-batch coffee from Huila, Colombia. Scroll through our roasts and our process, then pre-order your first bag.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* Layout: the beans video is pinned full-screen; the story (headline, three roasts, why we do this) scrolls up over it like normal content, each block following the last. The video plays in step with that scroll and ends as the last block leaves, then the pre-order section arrives. Single light look matching the live site. */
 :root{
-  --ink:#1f2428;      /* graphite */
-  --paper:#eceeed;    /* cool light grey */
-  --slate:#2f3a3d;    /* deep slate */
-  --mist:#aeb7b4;     /* muted grey-green */
-  --bean:#5a4636;     /* roasted brown, used sparingly */
+  --ink:#1f2428;
+  --paper:#eceeed;
+  --slate:#2f3a3d;
+  --mist:#aeb7b4;
+  --bean:#5a4636;
+  --night:#120d0a;
+  --soft:#d9dedc;
+  --espresso:#efe1cc;   /* pre-order ground: latte */
+  --roast:#fbf4ea;      /* fields: milk foam */
+  --crema:#2f1c12;      /* text: espresso */
+  --caramel:#b0662a;    /* accent: button, focus, borders */
+  --foam:#6e5442;       /* secondary text: roasted brown */
+  --deep:#e4d0b4;       /* footer: darker latte */
   --serif:"Instrument Serif",Georgia,serif;
   --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.65 var(--sans)}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--bean);outline-offset:3px}
-.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
-header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0}
+.wrap{max-width:68rem;margin:0 auto;padding-inline:1.5rem}
+
+
+/* Pinned video */
+.intro{position:relative;background:var(--night);color:var(--paper)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:1}
+.stage canvas,.stage .poster{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage .poster{object-fit:cover}
+.shade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to bottom,rgba(18,13,10,.65) 0%,rgba(18,13,10,0) 26%,rgba(18,13,10,0) 70%,rgba(18,13,10,.45) 100%),
+  linear-gradient(to right,rgba(18,13,10,.75) 0%,rgba(18,13,10,.3) 45%,rgba(18,13,10,0) 70%)}
+.progress{position:absolute;left:0;top:0;height:2px;background:var(--paper);width:calc(var(--p,0) * 100%);opacity:.7}
+.cue{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);font:500 .75rem var(--sans);letter-spacing:.14em;text-transform:uppercase;display:grid;justify-items:center;gap:.6rem;opacity:calc(1 - var(--p,0) * 15)}
+.cue i{display:block;width:1px;height:2.5rem;background:var(--paper);animation:drip 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* Story that scrolls over the video */
+.story{position:relative;z-index:2;margin-top:-100vh;margin-top:-100svh}
+.story header{position:sticky;top:0;z-index:3}
+.bar{display:flex;justify-content:space-between;align-items:center;padding-block:1.5rem;gap:1rem;flex-wrap:wrap}
 .logo{font:1.5rem var(--serif);text-decoration:none}
-nav a{margin-left:1.5rem;text-decoration:none;font-weight:500}
+nav{display:flex;gap:1.5rem}
+nav a{text-decoration:none;font-weight:500}
 nav a:hover{text-decoration:underline}
 
-.hero{background:var(--slate);color:var(--paper);padding:6rem 0 7rem}
-.hero h1{font:400 clamp(3.2rem,11vw,8.5rem)/.95 var(--serif);margin:0 0 2rem;letter-spacing:-.02em}
-.hero p{max-width:34rem;color:var(--mist);margin:0 0 2.5rem;font-size:1.2rem}
+.block{display:flex;align-items:center;min-height:80vh;min-height:80svh;scroll-margin-top:10vh}
+.block.first{align-items:flex-end;min-height:calc(100svh - 5.5rem);padding-bottom:14vh}
+.block .wrap{width:100%;display:grid;gap:1.1rem;justify-items:start}
+.block .wrap > *{max-width:100%}
+.tail{height:75vh;height:75svh}
+
+.eyebrow{font:500 .8rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mist);margin:0}
+.block h1{font:400 clamp(3rem,10vw,8rem)/.95 var(--serif);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.block h2{font:400 clamp(2.6rem,8vw,6rem)/1 var(--serif);margin:0;letter-spacing:-.015em;text-wrap:balance}
+.block p{max-width:32rem;color:var(--soft);margin:0;font-size:1.15rem}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin:0;padding:0;list-style:none;font-size:.95rem;color:var(--soft)}
+.facts b{display:block;font:500 .72rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--mist)}
+.price{font:400 2rem/1 var(--serif);font-variant-numeric:tabular-nums}
+.price small{font:400 .95rem var(--sans);color:var(--mist)}
 .btn{display:inline-block;background:var(--paper);color:var(--ink);padding:.9rem 1.8rem;font:600 1rem var(--sans);text-decoration:none;border:0;cursor:pointer;border-radius:2px}
 .btn:hover{background:#fff}
-.hero-top{background:var(--slate);color:var(--paper)}
-.hero-top header{color:var(--paper)}
 
-section{padding:5rem 0}
-h2{font:400 clamp(2rem,5vw,3.2rem)/1.1 var(--serif);margin:0 0 2.5rem}
-
-.coffees{border-top:1px solid var(--ink)}
-.coffee{display:grid;grid-template-columns:1fr 2fr auto;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--mist);align-items:baseline}
-.coffee h3{font:400 1.8rem/1.1 var(--serif);margin:0}
-.coffee p{margin:0;color:#4a5357}
-.coffee .price{font-weight:600}
-
-.photo{margin:0;padding:4rem 0 0}
-.photo img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:2px;background:var(--mist)}
-.photo figcaption{margin-top:.6rem;color:#4a5357;font-size:.85rem}
-.photo figcaption a{color:inherit}
-
-.about{background:#e1e4e3}
-.about p{max-width:40rem;font-size:1.2rem}
-
+/* Pre-order zone */
+main{background:
+  radial-gradient(60rem 30rem at 85% 30%,rgba(208,140,74,.22),transparent 70%),
+  linear-gradient(to bottom,var(--night) 0,#7a5638 4rem,var(--espresso) 12rem);
+  color:var(--crema)}
+#preorder{padding-block:6rem 5rem}
+#preorder .eyebrow{color:var(--caramel);margin-bottom:.8rem}
+#preorder h2{font:400 clamp(2.4rem,6vw,4rem)/1.05 var(--serif);margin:0 0 1rem;text-wrap:balance;color:var(--crema)}
+.lead{margin:0 0 2.5rem;color:var(--foam);max-width:36rem;font-size:1.1rem}
 form{display:grid;gap:1.25rem;max-width:36rem}
-label{display:grid;gap:.4rem;font-weight:500}
-input,select,textarea{font:inherit;padding:.8rem .9rem;border:1px solid var(--mist);background:#f7f8f7;color:var(--ink);border-radius:2px;width:100%}
-input:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none;box-shadow:0 0 0 2px var(--mist)}
+label{display:grid;gap:.4rem;font-weight:500;color:var(--crema)}
+input,select,textarea{font:inherit;padding:.8rem .9rem;border:1px solid rgba(208,140,74,.35);background:var(--roast);color:var(--crema);border-radius:2px;width:100%;color-scheme:light}
+input::placeholder,textarea::placeholder{color:var(--foam);opacity:.8}
+input:focus,select:focus,textarea:focus{border-color:var(--caramel);outline:none;box-shadow:0 0 0 3px rgba(208,140,74,.25)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-form .btn{background:var(--slate);color:var(--paper);justify-self:start}
-form .btn:hover{background:var(--ink)}
-.note{color:#4a5357;font-size:.95rem;margin:0}
-#status{min-height:1.5rem;font-weight:500;margin:0}
-.hp{position:absolute;left:-9999px}
+form .btn{background:var(--caramel);color:var(--roast);justify-self:start}
+form .btn:hover{background:#94531f}
+.note{color:var(--foam);font-size:.95rem;margin:0}
 
-footer{padding:2.5rem 0;border-top:1px solid var(--mist);color:#4a5357;font-size:.95rem}
+.hp{position:absolute;left:-9999px}
+#status{min-height:1.5rem;font-weight:500;margin:0;color:var(--caramel)}
+/* Second video: the journey. Cards travel right to left across the pinned video. */
+.journey{position:relative;background:#e8e6e2;color:var(--paper);height:400vh}
+.jstage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.jstage canvas,.jstage .poster{position:absolute;inset:0;width:100%;height:100%;display:block}
+.jstage .poster{object-fit:cover}
+.jshade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(18,13,10,.9) 0,rgba(18,13,10,0) 9rem),rgba(18,13,10,.12)}
+.jtitle{position:absolute;top:2rem;left:0;right:0;z-index:2}
+.jtitle .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.jtitle h2{font:400 clamp(1.8rem,4vw,2.8rem)/1 var(--serif);margin:0;color:var(--paper)}
+.jcount{font:500 .8rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-variant-numeric:tabular-nums}
+.track{position:absolute;left:0;top:50%;display:flex;gap:14vw;align-items:center;will-change:transform;transform:translate(100vw,-42%);z-index:2}
+.card{flex:none;width:min(64rem,80vw);display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;padding:2rem;background:rgba(18,13,10,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(236,238,237,.12);border-radius:4px}
+.card.flip .art{order:-1}
+.card .txt{display:grid;gap:1rem;min-width:0}
+.card h3{font:400 clamp(2rem,4.2vw,3.4rem)/1.02 var(--serif);margin:0;text-wrap:balance}
+.card p{margin:0;color:var(--soft);font-size:1.05rem}
+.card .eyebrow{color:#d6a06a}
+.stat{display:flex;gap:1.75rem;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.stat li{display:grid;font:400 1.6rem/1.1 var(--serif);font-variant-numeric:tabular-nums}
+.stat b{font:500 .7rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--mist);order:2;margin-top:.3rem}
+.art{margin:0;border-radius:3px;overflow:hidden;aspect-ratio:4/3;max-width:100%}
+.art svg{display:block;width:100%;height:100%}
+
+footer{padding-block:2.5rem 5rem;background:var(--deep);border-top:1px solid rgba(208,140,74,.25);color:var(--foam);font-size:.95rem}
 
 @media(max-width:700px){
-  .coffee{grid-template-columns:1fr;gap:.4rem}
   .row{grid-template-columns:1fr}
-  nav a{margin-left:1rem}
-  .hero{padding:4rem 0 5rem}
+  nav{gap:1rem}
+  .block{min-height:70svh}
+  .shade{background:linear-gradient(to bottom,rgba(18,13,10,.65) 0%,rgba(18,13,10,.35) 30%,rgba(18,13,10,.45) 70%,rgba(18,13,10,.7) 100%)}
+  .card{width:86vw;grid-template-columns:1fr;gap:1.1rem;padding:1.1rem}
+  .card.flip .art{order:0}
+  .art{aspect-ratio:16/9}
+  .card h3{font-size:1.9rem}
+  .card p{font-size:.98rem}
+  .track{gap:10vw;transform:translate(100vw,-45%)}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .stage canvas,.cue,.jstage canvas{display:none}
+  .journey{height:auto}
+  .jstage{position:relative;height:auto;padding-block:7rem 4rem}
+  .jstage .poster{position:fixed}
+  .track{position:relative;top:auto;transform:none;flex-direction:column;gap:3rem;padding-inline:1rem}
+  .card{width:100%;max-width:64rem}
+}
 </style>
+<link rel="preload" as="image" href="video/f1_sd/f001.webp">
 </head>
 <body>
+<div class="intro" id="intro">
+  <div class="stage">
+    <img class="poster" src="video/f1_sd/f001.webp" alt="Two hands lifting a heap of roasted coffee beans toward the camera">
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="shade"></div>
+    <div class="progress"></div>
+    <div class="cue"><span>Scroll</span><i></i></div>
+  </div>
 
-<div class="hero-top">
-  <div class="wrap">
+  <div class="story">
     <header>
-      <a class="logo" href="#top">Brand Name</a>
-      <nav><a href="#coffees">Coffees</a><a href="#about">About</a><a href="#preorder">Pre-order</a></nav>
+      <div class="wrap bar">
+        <a class="logo" href="#top">Brand Name</a>
+        <nav><a href="#coffees">Coffees</a><a href="#process">Process</a><a href="#preorder">Pre-order</a></nav>
+      </div>
     </header>
+
+    <div class="block first" id="top">
+      <div class="wrap">
+        <h1>Coffee,<br>roasted slowly.</h1>
+        <p>Small batches, honest origins, nothing hidden. Our first roast is coming soon. Reserve your bag before it ships.</p>
+      </div>
+    </div>
+
+    <div class="block" id="coffees">
+      <div class="wrap">
+        <p class="eyebrow">Roast 1 of 3 · Medium</p>
+        <h2>Morning</h2>
+        <p>Hazelnut, milk chocolate and a soft finish.</p>
+        <ul class="facts"><li><b>Brew with</b>Filter, French press</li><li><b>Size</b>250 g</li></ul>
+        <div class="price">€12 <small>/ bag</small></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="wrap">
+        <p class="eyebrow">Roast 2 of 3 · Dark</p>
+        <h2>Evening</h2>
+        <p>Cocoa, toasted almond and low acidity.</p>
+        <ul class="facts"><li><b>Brew with</b>Espresso, moka pot</li><li><b>Size</b>250 g</li></ul>
+        <div class="price">€12 <small>/ bag</small></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="wrap">
+        <p class="eyebrow">Roast 3 of 3 · Light</p>
+        <h2>Single origin</h2>
+        <p>Red fruit, tea-like body and a clean, bright finish.</p>
+        <ul class="facts"><li><b>Brew with</b>Pour-over</li><li><b>Size</b>250 g</li></ul>
+        <div class="price">€15 <small>/ bag</small></div>
+      </div>
+    </div>
+
+    <div class="block" id="about">
+      <div class="wrap">
+        <p class="eyebrow">Why we do this</p>
+        <p>We buy from small farms, roast in small batches and ship within a week of roasting. You get fresh coffee and know where it comes from. Roast details and origin appear on every bag.</p>
+        <a class="btn" href="#preorder">Pre-order a bag</a>
+      </div>
+    </div>
+
+    <div class="tail" aria-hidden="true"></div>
   </div>
 </div>
 
-<main id="top">
-  <div class="hero">
-    <div class="wrap">
-      <h1>Coffee,<br>roasted slowly.</h1>
-      <p>Small batches, honest origins, nothing hidden. Our first roast is coming soon. Reserve your bag before it ships.</p>
-      <a class="btn" href="#preorder">Pre-order a bag</a>
-    </div>
-  </div>
-
-  <figure class="photo">
-    <div class="wrap">
-      <img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=1600&q=80"
-           srcset="https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=800&q=80 800w,
-                   https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=1600&q=80 1600w"
-           sizes="(max-width: 68rem) 100vw, 68rem"
-           alt="A latte with milk foam art in a white cup on a saucer"
-           width="1600" height="900" loading="lazy">
-      <figcaption>Photo by <a href="https://unsplash.com/@jeremyyappy">Jeremy Yap</a> on <a href="https://unsplash.com/photos/jn-HaGWe4yw">Unsplash</a></figcaption>
-    </div>
-  </figure>
-
-  <section id="coffees">
-    <div class="wrap">
-      <h2>The first three roasts</h2>
-      <div class="coffees">
-        <div class="coffee">
-          <h3>Morning</h3>
-          <p>Medium roast. Hazelnut, milk chocolate and a soft finish. Made for filter and French press.</p>
-          <span class="price">€12 / 250 g</span>
-        </div>
-        <div class="coffee">
-          <h3>Evening</h3>
-          <p>Dark roast. Cocoa, toasted almond and low acidity. Made for espresso and moka pot.</p>
-          <span class="price">€12 / 250 g</span>
-        </div>
-        <div class="coffee">
-          <h3>Single origin</h3>
-          <p>Light roast. Red fruit, tea-like body and a clean, bright finish. Made for pour-over.</p>
-          <span class="price">€15 / 250 g</span>
-        </div>
+<div class="journey" id="process">
+  <div class="jstage">
+    <img class="poster" src="video/f2_sd/f001.webp" alt="A cup of black coffee seen from above, stirred with a spoon">
+    <canvas id="cv2" aria-hidden="true"></canvas>
+    <div class="jshade"></div>
+    <div class="jtitle">
+      <div class="wrap">
+        <h2>From farm to cup</h2>
+        <span class="jcount" id="jcount">Step 1 of 4</span>
       </div>
     </div>
-  </section>
 
-  <section class="about" id="about">
-    <div class="wrap">
-      <h2>Why we do this</h2>
-      <p>We buy from small farms, roast in small batches and ship within a week of roasting. You get fresh coffee and know where it comes from. Roast details and origin appear on every bag.</p>
+    <div class="track" id="track">
+      <article class="card">
+        <div class="txt">
+          <p class="eyebrow">Where it grows</p>
+          <h3>High in the hills of Huila, Colombia</h3>
+          <p>Our beans come from twelve family farms on the slopes of the Andes. Cool nights at altitude slow the ripening of the cherry, which gives the coffee more sweetness and a cleaner taste.</p>
+          <ul class="stat"><li>1,700 m<b>Altitude</b></li><li>12<b>Family farms</b></li><li>18 °C<b>Average day</b></li></ul>
+        </div>
+        <figure class="art">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Green coffee hills under a warm sun">
+            <defs><pattern id="rowsA" width="16" height="12" patternUnits="userSpaceOnUse"><circle cx="8" cy="6" r="4.2" fill="#2c3d25"/></pattern></defs>
+            <rect width="400" height="300" fill="#f3d9b1"/>
+            <circle cx="300" cy="82" r="36" fill="#f2a65a"/>
+            <path d="M0 165 Q70 105 150 145 T300 115 T400 130 V300 H0Z" fill="#9aa86a"/>
+            <path d="M0 205 Q100 150 210 195 T400 170 V300 H0Z" fill="#62784a"/>
+            <path d="M0 205 Q100 150 210 195 T400 170 V300 H0Z" fill="url(#rowsA)" opacity=".55"/>
+            <path d="M0 250 Q120 212 250 245 T400 232 V300 H0Z" fill="#3f5434"/>
+            <path d="M0 250 Q120 212 250 245 T400 232 V300 H0Z" fill="url(#rowsA)" opacity=".8"/>
+          </svg>
+        </figure>
+      </article>
+
+      <article class="card flip">
+        <div class="txt">
+          <p class="eyebrow">The harvest</p>
+          <h3>Picked by hand, only when red</h3>
+          <p>From October to December, pickers pass by the same tree up to five times. They take only the ripe red cherries and leave the green ones for the next round.</p>
+          <ul class="stat"><li>5×<b>Passes per tree</b></li><li>Oct–Dec<b>Season</b></li></ul>
+        </div>
+        <figure class="art">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A coffee branch with ripe red cherries and leaves">
+            <rect width="400" height="300" fill="#e9dcc4"/>
+            <path d="M-10 70 C120 110 230 150 410 240" stroke="#6b4a32" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <g fill="#4f6b3c">
+              <ellipse cx="90" cy="60" rx="46" ry="16" transform="rotate(-20 90 60)"/>
+              <ellipse cx="120" cy="140" rx="48" ry="17" transform="rotate(35 120 140)"/>
+              <ellipse cx="230" cy="110" rx="50" ry="17" transform="rotate(-25 230 110)"/>
+              <ellipse cx="270" cy="215" rx="50" ry="17" transform="rotate(30 270 215)"/>
+              <ellipse cx="350" cy="170" rx="44" ry="15" transform="rotate(-30 350 170)"/>
+            </g>
+            <g fill="#b3261e">
+              <circle cx="150" cy="118" r="13"/><circle cx="170" cy="128" r="13"/><circle cx="158" cy="140" r="12"/>
+              <circle cx="250" cy="160" r="13"/><circle cx="268" cy="168" r="13"/><circle cx="255" cy="182" r="12"/><circle cx="276" cy="186" r="11" fill="#d4472d"/>
+              <circle cx="335" cy="205" r="12"/><circle cx="350" cy="214" r="12" fill="#7f9b45"/>
+            </g>
+            <g fill="#fff" opacity=".45"><circle cx="146" cy="113" r="3"/><circle cx="246" cy="155" r="3"/><circle cx="264" cy="163" r="3"/><circle cx="331" cy="200" r="3"/></g>
+          </svg>
+        </figure>
+      </article>
+
+      <article class="card">
+        <div class="txt">
+          <p class="eyebrow">Washing and drying</p>
+          <h3>Three weeks in the sun</h3>
+          <p>The cherries are pulped and washed the same day. The beans then dry slowly on raised beds and are turned by hand several times a day, until only 11% of their moisture is left.</p>
+          <ul class="stat"><li>21 days<b>Drying</b></li><li>11%<b>Final moisture</b></li></ul>
+        </div>
+        <figure class="art">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Coffee beans drying on raised beds in the sun">
+            <defs><pattern id="beansA" width="14" height="10" patternUnits="userSpaceOnUse"><ellipse cx="7" cy="5" rx="4.5" ry="3" fill="#8a5a34"/><ellipse cx="0" cy="0" rx="4.5" ry="3" fill="#a06c40"/></pattern></defs>
+            <rect width="400" height="300" fill="#f6e3c4"/>
+            <circle cx="70" cy="70" r="30" fill="#f2a65a"/>
+            <rect y="210" width="400" height="90" fill="#cdb48e"/>
+            <g>
+              <path d="M40 150 H260 L280 180 H20Z" fill="url(#beansA)" stroke="#6b4a32" stroke-width="5"/>
+              <path d="M40 180 V235 M260 180 V235" stroke="#6b4a32" stroke-width="6"/>
+              <path d="M200 105 H390 L405 130 H185Z" fill="url(#beansA)" stroke="#6b4a32" stroke-width="5"/>
+              <path d="M215 130 V200 M375 130 V200" stroke="#6b4a32" stroke-width="6"/>
+            </g>
+          </svg>
+        </figure>
+      </article>
+
+      <article class="card flip">
+        <div class="txt">
+          <p class="eyebrow">The roast</p>
+          <h3>Roasted in small batches, shipped within a week</h3>
+          <p>We roast 12 kg at a time and follow each batch by ear and by colour. The beans rest for two days, then go into bags with the roast date and the farm printed on them.</p>
+          <ul class="stat"><li>12 kg<b>Per batch</b></li><li>11–14 min<b>Roast time</b></li><li>7 days<b>Roast to door</b></li></ul>
+        </div>
+        <figure class="art">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A drum roaster with freshly roasted beans cooling in a tray">
+            <defs><pattern id="beansB" width="12" height="9" patternUnits="userSpaceOnUse"><ellipse cx="6" cy="4.5" rx="4" ry="2.8" fill="#4a2a17"/><ellipse cx="0" cy="0" rx="4" ry="2.8" fill="#5e3720"/></pattern></defs>
+            <rect width="400" height="300" fill="#3a2418"/>
+            <path d="M120 40 H200 L185 85 H135Z" fill="#9a9fa3"/>
+            <circle cx="160" cy="150" r="72" fill="#7d8387"/>
+            <circle cx="160" cy="150" r="50" fill="#5d6367"/>
+            <circle cx="160" cy="150" r="30" fill="#2b1a12"/>
+            <rect x="150" y="140" width="20" height="20" rx="3" fill="#d08c4a"/>
+            <path d="M225 170 H300" stroke="#9a9fa3" stroke-width="14"/>
+            <ellipse cx="310" cy="235" rx="80" ry="26" fill="#9a9fa3"/>
+            <ellipse cx="310" cy="230" rx="70" ry="20" fill="url(#beansB)"/>
+            <g stroke="#e9dcc4" stroke-width="3" fill="none" opacity=".55" stroke-linecap="round">
+              <path d="M285 200 q-8 -14 0 -26 q8 -12 0 -24"/><path d="M315 196 q-8 -14 0 -26 q8 -12 0 -24"/><path d="M345 200 q-8 -14 0 -26 q8 -12 0 -24"/>
+            </g>
+          </svg>
+        </figure>
+      </article>
     </div>
-  </section>
+  </div>
+</div>
 
+<main>
   <section id="preorder">
     <div class="wrap">
+      <p class="eyebrow">First roast · shipping soon</p>
       <h2>Pre-order your coffee</h2>
+      <p class="lead">Pick your roast and how many bags. We'll email you before it ships.</p>
       <form id="form" action="https://formspree.io/f/xyekpknd" method="POST">
-        <label>Full name
-          <input type="text" name="name" autocomplete="name" required>
-        </label>
+        <label for="f-name">Full name<input id="f-name" type="text" name="name" autocomplete="name" required></label>
         <div class="row">
-          <label>Email
-            <input type="email" name="email" autocomplete="email" required>
-          </label>
-          <label>Phone (optional)
-            <input type="tel" name="phone" autocomplete="tel">
-          </label>
+          <label for="f-email">Email<input id="f-email" type="email" name="email" autocomplete="email" required></label>
+          <label for="f-phone">Phone (optional)<input id="f-phone" type="tel" name="phone" autocomplete="tel"></label>
         </div>
         <div class="row">
-          <label>Coffee
-            <select name="product" required>
-              <option value="">Choose a roast</option>
-              <option>Morning</option>
-              <option>Evening</option>
-              <option>Single origin</option>
+          <label for="f-product">Coffee
+            <select id="f-product" name="product" required>
+              <option value="">Choose a roast</option><option>Morning</option><option>Evening</option><option>Single origin</option>
             </select>
           </label>
-          <label>Number of bags
-            <input type="number" name="quantity" min="1" max="20" value="1" required>
-          </label>
+          <label for="f-qty">Number of bags<input id="f-qty" type="number" name="quantity" min="1" max="20" value="1" required></label>
         </div>
-        <label>Message (optional)
-          <textarea name="message" rows="4" placeholder="Grind size, delivery address, questions..."></textarea>
-        </label>
+        <label for="f-msg">Message (optional)<textarea id="f-msg" name="message" rows="4" placeholder="Grind size, delivery address, questions..."></textarea></label>
         <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn" type="submit">Send my pre-order</button>
         <p id="status" role="status"></p>
@@ -178,36 +356,155 @@ footer{padding:2.5rem 0;border-top:1px solid var(--mist);color:#4a5357;font-size
   </section>
 </main>
 
-<footer>
-  <div class="wrap">© 2026 Brand Name. All rights reserved.</div>
-</footer>
+<footer><div class="wrap">© 2026 Brand Name. All rights reserved.</div></footer>
 
 <script>
-const form = document.getElementById('form');
-const status = document.getElementById('status');
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (form.action.includes('YOUR_FORM_ID')) {
-    status.textContent = 'The form is not connected yet. Add your Formspree form ID in index.html.';
-    return;
-  }
-  status.textContent = 'Sending...';
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { Accept: 'application/json' }
-    });
-    if (res.ok) {
-      form.reset();
-      status.textContent = 'Thank you. Your pre-order is received and we will email you soon.';
-    } else {
-      status.textContent = 'Something went wrong. Please check your details and try again.';
+(function(){
+  const COUNT = 69;
+  const intro = document.getElementById('intro');
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const root = document.documentElement;
+  const texts = [...document.querySelectorAll('.block .wrap')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const frames = [];
+  let shown = 0, drawn = -1;
+
+  const form = document.getElementById('form');
+  const status = document.getElementById('status');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Sending...';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (res.ok) {
+        form.reset();
+        status.textContent = 'Thank you. Your pre-order is received and we will email you soon.';
+      } else {
+        status.textContent = 'Something went wrong. Please check your details and try again.';
+      }
+    } catch (err) {
+      status.textContent = 'Network error. Please try again in a moment.';
     }
-  } catch (err) {
-    status.textContent = 'Network error. Please try again in a moment.';
+  });
+
+  if (reduce) return;
+
+  const clamp = v => Math.min(1, Math.max(0, v));
+
+  // A canvas whose frame follows a 0–1 progress value, eased so it never jumps.
+  function player(canvas, dir, count){
+    const c2 = canvas.getContext('2d');
+    c2.imageSmoothingQuality = 'high';
+    const imgs = new Array(count);
+    let shown = 0, drawn = -1;
+    // Coarse frames first (every 8th, then 4th, 2nd, all) so scrolling works before everything has loaded.
+    const order = [], seen = new Set();
+    [8, 4, 2, 1].forEach(stepN => { for (let i = 0; i < count; i += stepN) if (!seen.has(i)) { seen.add(i); order.push(i); } });
+    if (!seen.has(count - 1)) order.splice(1, 0, count - 1);
+    let next = 0, active = 0;
+    function pump(){
+      while (active < 6 && next < order.length) {
+        const i = order[next++];
+        const img = new Image();
+        img.decoding = 'async';
+        active++;
+        img.onload = img.onerror = () => { active--; drawn = -1; pump(); };
+        img.src = dir + '/f' + String(i + 1).padStart(3, '0') + '.webp';
+        imgs[i] = img;
+      }
+    }
+    pump();
+    function nearest(i){
+      for (let d = 0; d < count; d++) {
+        const a = imgs[i - d], b = imgs[i + d];
+        if (a && a.complete && a.naturalWidth) return a;
+        if (b && b.complete && b.naturalWidth) return b;
+      }
+      return null;
+    }
+    return {
+      size(){
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        canvas.width = Math.round(canvas.clientWidth * dpr);
+        canvas.height = Math.round(canvas.clientHeight * dpr);
+        drawn = -1;
+      },
+      update(p){
+        const target = p * (count - 1);
+        shown += (target - shown) * 0.18;
+        if (Math.abs(target - shown) < 0.01) shown = target;
+        const i = Math.round(shown);
+        if (i === drawn) return;
+        const img = nearest(i);
+        if (!img) return;
+        const cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
+        const s = Math.max(cw / iw, ch / ih), w = iw * s, h = ih * s;
+        c2.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+        drawn = i;
+      }
+    };
   }
-});
+
+  // Full-HD frames for large screens, a lighter set for phones.
+  const hd = innerWidth * Math.min(devicePixelRatio || 1, 2) > 1300 ? 'hd' : 'sd';
+  const v1 = player(cv, 'video/f1_' + hd, COUNT);
+  const v2 = player(document.getElementById('cv2'), 'video/f2_' + hd, 80);
+  const journey = document.getElementById('process');
+  const track = document.getElementById('track');
+  const cards = [...track.children];
+  const jcount = document.getElementById('jcount');
+
+  function progressOf(el){
+    const span = el.offsetHeight - innerHeight;
+    return span > 0 ? clamp(-el.getBoundingClientRect().top / span) : 0;
+  }
+
+  // The journey is as tall as the distance the cards travel, so one pixel of scroll moves them one pixel left.
+  function sizeJourney(){
+    const travel = innerWidth + track.scrollWidth;
+    journey.style.height = (travel + innerHeight) + 'px';
+  }
+
+  function size(){
+    v1.size(); v2.size(); sizeJourney();
+  }
+
+  function tick(){
+    const vh = innerHeight;
+    const p = progressOf(intro);
+    v1.update(p);
+    root.style.setProperty('--p', p.toFixed(4));
+
+    const q = progressOf(journey);
+    v2.update(q);
+    const x = innerWidth - q * (innerWidth + track.scrollWidth);
+    track.style.transform = 'translate(' + x.toFixed(1) + 'px,' + (innerWidth <= 700 ? '-45%' : '-42%') + ')';
+    let step = 1, best = Infinity;
+    cards.forEach((c, k) => {
+      const r = c.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - innerWidth / 2);
+      if (d < best) { best = d; step = k + 1; }
+    });
+    jcount.textContent = 'Step ' + step + ' of ' + cards.length;
+
+    // Text keeps scrolling normally; it only softens as it rises into the menu bar.
+    texts.forEach(el => {
+      const r = el.getBoundingClientRect();
+      const o = clamp((r.bottom - vh * 0.12) / (vh * 0.22));
+      el.style.opacity = o.toFixed(3);
+    });
+
+    requestAnimationFrame(tick);
+  }
+
+  size();
+  addEventListener('resize', size);
+  addEventListener('load', size);
+  if (document.fonts) document.fonts.ready.then(size);
+  requestAnimationFrame(tick);
+})();
 </script>
+
 </body>
 </html>
