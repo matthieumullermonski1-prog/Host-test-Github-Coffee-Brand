@@ -170,7 +170,7 @@ const form = document.getElementById('form');
 const status = document.getElementById('status');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (form.action.includes('YOUR_FORM_ID')) {
+  if (form.action.includes('https://formspree.io/f/xyekpknd')) {
     status.textContent = 'The form is not connected yet. Add your Formspree form ID in index.html.';
     return;
   }
